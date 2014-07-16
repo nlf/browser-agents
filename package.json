@@ -1,0 +1,29 @@
+{
+  "name": "browser-agents",
+  "version": "0.0.0",
+  "description": "An exported list of browser user agent strings",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nlf/browser-agents.git"
+  },
+  "scripts": {
+    "build": "node build"
+  },
+  "keywords": [
+    "browser",
+    "agent",
+    "useragent"
+  ],
+  "author": "Nathan LaFreniere <quitlahok@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nlf/browser-agents/issues"
+  },
+  "homepage": "https://github.com/nlf/browser-agents",
+  "devDependencies": {
+    "async": "^0.9.0",
+    "cheerio": "^0.17.0",
+    "nipple": "^2.5.3"
+  }
+}
