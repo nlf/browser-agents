@@ -47,6 +47,10 @@ var parse = function (context) {
                 versions[version].push($(str).text());
             }
         });
+
+        if (!versions[version].length) {
+            delete versions[version];
+        }
     });
 
     return versions;
