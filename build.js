@@ -42,7 +42,10 @@ var parse = function (context) {
 
         $('li > a', $(header).next('ul')).each(function (index, str) {
 
-            versions[version].push($(str).text());
+            var s = $(str).text();
+            if (s.toLowerCase().indexOf('mobile') === -1) {
+                versions[version].push($(str).text());
+            }
         });
     });
 
