@@ -25,7 +25,11 @@ var parse = function (context) {
     $('h4').each(function (index, header) {
 
         var version = parseVersion($(header).text().split(' ').pop());
-        versions[version] = [];
+
+        if (!versions[version]) {
+            versions[version] = [];
+        }
+
         versions[version].random = function () {
 
             var randomItem = versions[version][Math.floor(Math.random() * versions[version].length)];
