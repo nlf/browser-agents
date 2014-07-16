@@ -21,7 +21,7 @@ agents.Chrome.random();
 agents.Opera.random();
 agents.Safari.random();
 agents.Firefox.random();
-agents['Internet Explorer'].random();
+agents.IE.random();
 ```
 
 And to get a user agent string for a specific version of a specific browser:
