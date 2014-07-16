@@ -24,9 +24,9 @@ agents.Firefox.random();
 agents['Internet Explorer'].random();
 ```
 
-And to get a random user agent string for a specific version of a specific browser:
+And to get a user agent string for a specific version of a specific browser:
 
 ```javascript
 var agents = require('browser-agents');
-agents.Chrome['34.0'].random();
+agents.Chrome['34.0'];
 ```

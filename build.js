@@ -1,7 +1,5 @@
 var Fs = require('fs');
-var Async = require('async');
-var Nipple = require('nipple');
-var Cheerio = require('cheerio');
+var Useragent = require('useragent');
 
 var agents = {};
 
@@ -17,55 +15,32 @@ var parseVersion = function (version) {
     }
 };
 
-var parse = function (context) {
+var whitelist = [
+    'IE',
+    'Chrome',
+    'Safari',
+    'Firefox',
+    'Opera',
+    'Mobile Safari',
+    'Opera Mobile',
+    'Firefox Mobile',
+    'IE Mobile'
+];
 
-    var versions = {};
-    var $ = Cheerio.load(context);
+Fs.readFile('./user_agents.txt', 'utf8', function (err, file) {
 
-    $('h4').each(function (index, header) {
+    file.split('\n').forEach(function (line) {
 
-        var version = parseVersion($(header).text().split(' ').pop());
-
-        if (!versions[version]) {
-            versions[version] = [];
+        var agent = Useragent.parse(line);
+        if (whitelist.indexOf(agent.family) === -1) {
+            return;
         }
 
-        versions[version].random = function () {
-
-            var randomItem = versions[version][Math.floor(Math.random() * versions[version].length)];
-            if (typeof randomItem === 'function') {
-                return versions[version].random();
-            }
-
-            return randomItem;
-        };
-
-        $('li > a', $(header).next('ul')).each(function (index, str) {
-
-            var s = $(str).text();
-            if (s.toLowerCase().indexOf('mobile') === -1) {
-                versions[version].push($(str).text());
-            }
-        });
-
-        if (!versions[version].length) {
-            delete versions[version];
-        }
+        agents[agent.family] = agents[agent.family] || {};
+        agents[agent.family][agent.major + '.' + agent.minor] = line;
+        // agents[agent.family][agent.major + '.' + agent.minor] = agents[agent.family][agent.major + '.' + agent.minor] || [];
+        // agents[agent.family][agent.major + '.' + agent.minor].push(line);
     });
-
-    return versions;
-};
-
-var browsers = ['Internet Explorer', 'Chrome', 'Firefox', 'Safari', 'Opera'];
-
-Async.each(browsers, function (browser, cb) {
-
-    Nipple.get('http://www.useragentstring.com/pages/' + browser + '/', { }, function (err, res, body) {
-
-        agents[browser] = parse(body);
-        cb();
-    });
-}, function () {
 
     Fs.writeFileSync('./browsers.json', JSON.stringify(agents), 'utf8');
 });
