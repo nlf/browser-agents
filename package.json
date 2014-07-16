@@ -1,6 +1,6 @@
 {
   "name": "browser-agents",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "An exported list of browser user agent strings",
   "main": "index.js",
   "repository": {
