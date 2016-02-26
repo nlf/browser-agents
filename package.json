@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "node build",
-    "fetch-agents": "curl -o user_agents.txt https://whichbrowser.net/data/useragents.txt"
+    "fetch-agents": "curl -o user_agents.txt http://www.ua-tracker.com/user_agents.txt"
   },
   "keywords": [
     "browser",
